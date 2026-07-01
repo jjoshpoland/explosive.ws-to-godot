@@ -93,9 +93,10 @@ else:
             
             # Remove root motion fcurves
             if remove_root_motion:
-                for fcurve in obj.animation_data.action.fcurves:
-                    if "Motion" in fcurve.data_path and "location" in fcurve.data_path:
-                            action.fcurves.remove(fcurve)
+                if hasattr(obj.animation_data.action, 'fcurves'):
+                    for fcurve in obj.animation_data.action.fcurves:
+                        if "Motion" in fcurve.data_path and "location" in fcurve.data_path:
+                                action.fcurves.remove(fcurve)
 
         if not action:
             print(f"Warning: '{filename}' doesn't contain an animation.")
